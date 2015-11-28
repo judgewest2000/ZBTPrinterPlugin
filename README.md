@@ -18,7 +18,7 @@ cordova.plugins.zbtprinter.print("^XA^FO10,10^AFN,26,13^FDHello, World!^FS^XZ",
 ###Cordova
 
 ```
-cordova plugin add https://github.com/mmilidoni/zbtprinter.git
+cordova plugin add https://github.com/MindMasterSG/ZBTPrinterPlugin.git
 ```
 
 ###Very important!
