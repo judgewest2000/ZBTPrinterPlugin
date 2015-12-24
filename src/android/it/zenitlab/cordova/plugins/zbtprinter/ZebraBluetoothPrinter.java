@@ -18,7 +18,7 @@ import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 public class ZebraBluetoothPrinter extends CordovaPlugin {
 
     private static final String LOG_TAG = "ZebraBluetoothPrinter";
-    String mac =    "AC:3F:A4:53:B4:FC"; //  "AC:3F:A4:53:51:50";
+    String mac =    "";//"AC:3F:A4:53:B4:FC"; //  "AC:3F:A4:53:51:50";
 
     public ZebraBluetoothPrinter() {
     }
@@ -28,7 +28,8 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
 
         if (action.equals("print")) {
             try {
-                String msg = args.getString(0);
+            	mac = args.getString(0);
+                String msg = args.getString(1);
                 sendData(callbackContext, msg);
             } catch (IOException e) {
                 Log.e(LOG_TAG, e.getMessage());
