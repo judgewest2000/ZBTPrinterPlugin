@@ -44,7 +44,8 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                 	mac = msg.substring(8,index);
                 	msg = msg.substring((index+8), msg.length());
                 }
-                sendData(callbackContext, msg);
+                //sendData(callbackContext, msg);
+                getMacAddressOfDiscoveredPrinterAndPrint(callbackContent, msg);
             } catch (IOException e) {
                 Log.e(LOG_TAG, e.getMessage());
                 e.printStackTrace();
@@ -55,29 +56,14 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
     }
 
     private String getMacAddressOfDiscoveredPrinterAndPrint(CallbackContext callbackContent, String msg){
-         
-          BluetoothDiscoverer.findPrinters(this, new DiscoveryHandler() {
 
-	            public void foundPrinter(DiscoveredPrinter printer) {
-	                //String macAddress = printer.address;
-	                mac = printer.address;
-                    sendData(callbackContent, msg);
-	            }
-
-	            public void discoveryFinished() {
-	                //Discovery is done
-	            }
-
-	            public void discoveryError(String message) {
-	                //Error during discovery
-	            }
-	        });
-	    } catch (ConnectionException e) {
-	        e.printStackTrace();
-	    } catch (InterruptedException e) {
-	        e.printStackTrace();
-	    }
-
+        BluetoothDiscoverer.findPrinters(this, new DiscoveryHandler(){
+            @Override
+            public void foundPrinter(DiscoveredPrinter printer) {
+                mac = printer.address;
+                sendData(callbackContent, msg);
+            }
+        });
     }
 
     /*
