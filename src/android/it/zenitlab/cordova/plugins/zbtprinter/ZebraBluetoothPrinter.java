@@ -15,8 +15,10 @@ import com.zebra.sdk.printer.ZebraPrinter;
 import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 
-import com.zebra.android.discovery.BluetoothDiscoverer;
-import com.zebra.android.discovery.DiscoveryHandler;
+import com.zebra.sdk.printer.discovery.BluetoothDiscoverer;
+import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
+import com.zebra.sdk.printer.discovery.DiscoveredPrinterBluetooth;
+import com.zebra.sdk.printer.discovery.DiscoveryHandler;
 
 
 public class ZebraBluetoothPrinter extends CordovaPlugin {
