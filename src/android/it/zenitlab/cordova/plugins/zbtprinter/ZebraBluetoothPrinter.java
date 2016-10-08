@@ -15,17 +15,25 @@ import com.zebra.sdk.printer.ZebraPrinter;
 import com.zebra.sdk.printer.ZebraPrinterFactory;
 import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
 
+import com.zebra.android.discovery.BluetoothDiscoverer;
+import com.zebra.android.discovery.DiscoveryHandler;
+
+
 public class ZebraBluetoothPrinter extends CordovaPlugin {
 
     private static final String LOG_TAG = "ZebraBluetoothPrinter";
-    String mac =    "AC:3F:A4:1D:BE:90"; //  "AC:3F:A4:53:51:50";
+    String mac =  "AC:3F:A4:1D:BE:90"; //  "AC:3F:A4:53:51:50";
 
     public ZebraBluetoothPrinter() {
     }
 
+ 
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     
+        
+
         if (action.equals("print")) {
             try {
             	//mac = args.getString(0);
@@ -44,6 +52,32 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
             return true;
         }
         return false;
+    }
+
+    private String getMacAddressOfDiscoveredPrinterAndPrint(CallbackContext callbackContent, String msg){
+         
+          BluetoothDiscoverer.findPrinters(this, new DiscoveryHandler() {
+
+	            public void foundPrinter(DiscoveredPrinter printer) {
+	                //String macAddress = printer.address;
+	                mac = printer.address;
+                    sendData(callbackContent, msg);
+	            }
+
+	            public void discoveryFinished() {
+	                //Discovery is done
+	            }
+
+	            public void discoveryError(String message) {
+	                //Error during discovery
+	            }
+	        });
+	    } catch (ConnectionException e) {
+	        e.printStackTrace();
+	    } catch (InterruptedException e) {
+	        e.printStackTrace();
+	    }
+
     }
 
     /*
