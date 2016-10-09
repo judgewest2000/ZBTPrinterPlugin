@@ -24,7 +24,9 @@ import com.zebra.sdk.printer.discovery.DiscoveryHandler;
 public class ZebraBluetoothPrinter extends CordovaPlugin {
 
     private static final String LOG_TAG = "ZebraBluetoothPrinter";
-    String mac =  "AC:3F:A4:1D:BE:90"; //  "AC:3F:A4:53:51:50";
+    String mac =  "abc";
+     //"AC:3F:A4:1D:BE:90";
+     //  "AC:3F:A4:53:51:50";
 
     public ZebraBluetoothPrinter() {
     }
