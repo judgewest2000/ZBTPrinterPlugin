@@ -5,7 +5,8 @@ A Cordova/Phonegap driver for Zebra bluetooth printers
 You can send data in ZPL Zebra Programing Language:
 
 ```
-cordova.plugins.zbtprinter.print("^XA^FO10,10^AFN,26,13^FDHello, World!^FS^XZ",
+--PRINT TO THE PRINTER
+cordova.plugins.zbtprinter.print("^XA^FO10,10^AFN,26,13^FDHello, World!^FS^XZ", "",
     function(success) { 
         alert("Print ok"); 
     }, function(fail) { 
