@@ -44,11 +44,10 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                 	mac = msg.substring(8,index);
                 	msg = msg.substring((index+8), msg.length());
                 }
-                //sendData(callbackContext, msg);
+                
                 getMacAddressOfDiscoveredPrinterAndPrint(callbackContext, msg);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 Log.e(LOG_TAG, e.getMessage());
-                e.printStackTrace();
             }
             return true;
         }
