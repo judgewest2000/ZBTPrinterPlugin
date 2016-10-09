@@ -34,7 +34,6 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     
-        
 
         if (action.equals("print")) {
             try {
@@ -59,13 +58,28 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
 
     private String getMacAddressOfDiscoveredPrinterAndPrint(final CallbackContext callbackContext, final String msg){
 
-        BluetoothDiscoverer.findPrinters(this, new DiscoveryHandler(this){
-            @Override
-            public void foundPrinter(DiscoveredPrinter printer) {
-                mac = printer.address;
-                sendData(callbackContext, msg);
-            }
-        });
+         try{
+            BluetoothDiscoverer.findPrinters(callbackContext, new DiscoveryHandler() {
+                @Override
+                public void foundPrinter(DiscoveredPrinter discoveredPrinter) {
+                    this.mac = discoveredPrinter.address;
+                    sendData(callbackContext, msg);
+                }
+
+                @Override
+                public void discoveryFinished() {
+                    
+                }
+
+                @Override
+                public void discoveryError(String s) {
+                    
+                }
+            });
+        } catch(Exception ex){
+            
+        }
+
     }
 
     /*
