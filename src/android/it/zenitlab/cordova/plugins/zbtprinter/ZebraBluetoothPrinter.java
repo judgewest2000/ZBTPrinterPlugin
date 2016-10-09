@@ -1,7 +1,7 @@
 package it.zenitlab.cordova.plugins.zbtprinter;
 
 import java.io.IOException;
-
+import android.content.Context;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
