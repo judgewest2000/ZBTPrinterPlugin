@@ -24,62 +24,72 @@ import com.zebra.sdk.printer.discovery.DiscoveryHandler;
 public class ZebraBluetoothPrinter extends CordovaPlugin {
 
     private static final String LOG_TAG = "ZebraBluetoothPrinter";
-    String mac =  "abc";
-     //"AC:3F:A4:1D:BE:90";
-     //  "AC:3F:A4:53:51:50";
+    //String mac =  "AC:3F:A4:1D:BE:90";
+    //"AC:3F:A4:1D:BE:90";
+    //  "AC:3F:A4:53:51:50";
 
     public ZebraBluetoothPrinter() {
     }
 
- 
+        @Override
+        public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
-    @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+            if (action.equals("print")) {
+                try {
+                    //mac = args.getString(0);
+                    String msg = args.getString(0);
+                    String mac = args.getString(1);
 
-        if (action.equals("print")) {
-            try {
-            	//mac = args.getString(0);
-                String msg = args.getString(0);
-                if(msg.startsWith("PRINTMAC")) {
-            	
-                	int index = msg.indexOf("MACPRINT");	
-                	mac = msg.substring(8,index);
-                	msg = msg.substring((index+8), msg.length());
+                    sendData(callbackContext, msg, mac);
+                    //getMacAddressOfDiscoveredPrinterAndPrint(callbackContext, msg);
+                } catch (Exception e) {
+                    Log.e(LOG_TAG, e.getMessage());
                 }
-                
-                getMacAddressOfDiscoveredPrinterAndPrint(callbackContext, msg);
-            } catch (Exception e) {
-                Log.e(LOG_TAG, e.getMessage());
+                return true;
             }
-            return true;
-        }
-        return false;
+
+            if (action.equals("getprinter")){
+                getPrinter(callbackContext);
+                return true;
+            }
+
+            return false;
     }
 
-    private void getMacAddressOfDiscoveredPrinterAndPrint(final CallbackContext callbackContext, final String msg){
+    private void getPrinter(final CallbackContext callbackContext){
 
         Context ctx = this.cordova.getActivity().getApplicationContext();
 
-         try{
+        try{
             BluetoothDiscoverer.findPrinters(ctx, new DiscoveryHandler() {
                 @Override
                 public void foundPrinter(DiscoveredPrinter discoveredPrinter) {
-                    mac = discoveredPrinter.address;
-                    sendData(callbackContext, msg);
+
+                    DiscoveredPrinterBluetooth bt = (DiscoveredPrinterBluetooth)discoveredPrinter;
+
+                    String friendlyName = bt.friendlyName;
+
+                    if(friendlyName.startsWith("XXXX")){
+
+                        String mac = bt.address;
+
+                        callbackContext.success(mac);
+
+                    }
                 }
 
                 @Override
                 public void discoveryFinished() {
-                    
+                    Log.d("Discovery finished", "done");
                 }
 
                 @Override
                 public void discoveryError(String s) {
-                    
+                    callbackContext.error("Discovery error: " + s);
                 }
             });
         } catch(Exception ex){
-            
+            callbackContext.error("Error: " + ex.getMessage());
         }
 
     }
@@ -87,7 +97,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
     /*
      * This will send data to be printed by the bluetooth printer
      */
-    void sendData(final CallbackContext callbackContext, final String msg) {
+    void sendData(final CallbackContext callbackContext, final String msg, final String mac) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -113,8 +123,8 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
                         thePrinterConn.close();
                         callbackContext.success("Stampa terminata");
                     } else {
-						callbackContext.error("printer is not ready");
-					}
+                        callbackContext.error("printer is not ready");
+                    }
                 } catch (Exception e) {
                     // Handle communications error here.
                     callbackContext.error(e.getMessage());
