@@ -54,7 +54,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
         return false;
     }
 
-    private String getMacAddressOfDiscoveredPrinterAndPrint(final CallbackContext callbackContext, final String msg){
+    private void getMacAddressOfDiscoveredPrinterAndPrint(final CallbackContext callbackContext, final String msg){
 
         Context ctx = this.cordova.getActivity().getApplicationContext();
 
