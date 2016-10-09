@@ -62,7 +62,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
             BluetoothDiscoverer.findPrinters(callbackContext, new DiscoveryHandler() {
                 @Override
                 public void foundPrinter(DiscoveredPrinter discoveredPrinter) {
-                    this.mac = discoveredPrinter.address;
+                    mac = discoveredPrinter.address;
                     sendData(callbackContext, msg);
                 }
 
