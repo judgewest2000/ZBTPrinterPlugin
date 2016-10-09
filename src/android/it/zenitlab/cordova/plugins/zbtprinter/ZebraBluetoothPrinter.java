@@ -85,7 +85,7 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
     /*
      * This will send data to be printed by the bluetooth printer
      */
-    void sendData(final CallbackContext callbackContext, final String msg) throws IOException {
+    void sendData(final CallbackContext callbackContext, final String msg) {
         new Thread(new Runnable() {
             @Override
             public void run() {
