@@ -57,9 +57,9 @@ public class ZebraBluetoothPrinter extends CordovaPlugin {
         return false;
     }
 
-    private String getMacAddressOfDiscoveredPrinterAndPrint(CallbackContext callbackContext, String msg){
+    private String getMacAddressOfDiscoveredPrinterAndPrint(final CallbackContext callbackContext, final String msg){
 
-        BluetoothDiscoverer.findPrinters(getActivity(), new DiscoveryHandler(){
+        BluetoothDiscoverer.findPrinters(callbackContext, new DiscoveryHandler(){
             @Override
             public void foundPrinter(DiscoveredPrinter printer) {
                 mac = printer.address;
