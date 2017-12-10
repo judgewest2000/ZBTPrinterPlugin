@@ -1,0 +1,19 @@
+{
+  "name": "zbtprinterplugin",
+  "version": "1.0.0",
+  "description": "A Cordova/Phonegap driver for Zebra bluetooth printers",
+  "main": "zbtprinter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/judgewest2000/ZBTPrinterPlugin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/judgewest2000/ZBTPrinterPlugin/issues"
+  },
+  "homepage": "https://github.com/judgewest2000/ZBTPrinterPlugin#readme"
+}
